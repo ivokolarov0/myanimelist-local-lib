@@ -36,8 +36,9 @@ if (!year) {
     const sortDataJSON = dataJSON.sort((a, b) => a.name.localeCompare(b.name));
     const humanReadableDate = new Date().toLocaleString('en-GB', { dateStyle: 'short' }).replace(/\//g, '-');
     try {
-      await fs.rename(dataFilePath, dataFilePath + '-' + humanReadableDate + '.bak');
-      console.log('Backup created', dataFilePath + '-' + humanReadableDate + '.bak');
+      const backupFilePath = dataFilePath + '-' + humanReadableDate + '.bak';
+      await fs.rename(dataFilePath, backupFilePath);
+      console.log('Backup created', backupFilePath);
     } catch (error) {
       console.log(error);
     }
