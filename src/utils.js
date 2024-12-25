@@ -51,7 +51,7 @@ export const getMyAnimeListTitles = async (url, rows = []) => {
   let nextLink = getNextLink(document, url);
   const currentRows = document.querySelectorAll('.list table tbody tr .title .hoverinfo_trigger');
 
-  currentRows.forEach(row => {
+  for (const row of currentRows) {
     const id = row.getAttribute('href').match(/anime\/(\d+)/)[1];
     const date = row.closest('tr').querySelector('td:last-child').textContent;
     const dateYear = new Date(date).getFullYear();
@@ -59,10 +59,14 @@ export const getMyAnimeListTitles = async (url, rows = []) => {
       rows.push({ 
         id: id,
         url: `${baseMyAnimeList}/anime/${id}`,
-        title: row.textContent,
+        name: row.textContent,
       });
+    } else if(dateYear > year) {
+      // Because MyAnimeList lists all the titles from the start year untill the current year... no logic, so we return earlier here
+      console.log('No more titles from this year');
+      return rows;
     }
-  });
+  }
  
   if(nextLink) {
     await sleep(2000);
