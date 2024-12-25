@@ -2,7 +2,8 @@ import {
   getMyAnimeListTitles,
   year, 
   getIgnoreFile,
-  getDataFile
+  getDataFile,
+  searchPath
 } from './utils.js';
 
 if (!year) {
@@ -11,7 +12,6 @@ if (!year) {
 }
 
 (async () => {
-  const searchPath = process.env.SEARCH_PATH.replace('${year}', year);
   const websiteItems = await getMyAnimeListTitles(searchPath);
 
   const dataJSON = await getDataFile();

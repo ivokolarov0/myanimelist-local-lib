@@ -12,6 +12,7 @@ export const baseMyAnimeList = process.env.BASE_ANIMELIST;
 export const networkFolderPath = process.env.NETWORK_PATH + year;
 export const dataFilePath = `${networkFolderPath}\\data.json`;
 export const ignoreFilePath = `${networkFolderPath}\\ignore.json`;
+export const searchPath = process.env.SEARCH_PATH.replace('${year}', year)
 
 export const fetchHTML = async (url) => {
   try {
