@@ -1,3 +1,4 @@
+import fs from 'fs/promises'
 import { getMyAnimeListTitles, year } from "./utils.js";
 
 if (!year) {
@@ -8,4 +9,6 @@ if (!year) {
 
 const websiteItems = await getMyAnimeListTitles(`/anime.php?cat=anime&q=&type=0&score=0&status=0&p=0&r=6&sm=0&sd=0&sy=${year}&em=0&ed=0&ey=0&c%5B%5D=a&c%5B%5D=b&c%5B%5D=c&c%5B%5D=d`);
 
-console.log(websiteItems)
+fs.writeFile('./temp/list.json', JSON.stringify(websiteItems, null, 2))
+
+console.log('List created in ./temp/list.json')

@@ -34,10 +34,11 @@ const getNextLink = (document, url) => {
   const searchParams = new URLSearchParams(url);
   const show = searchParams.get('show') ?? parseInt(searchParams.get('show'));
   let nextLink;
+
   if(!show) {
     nextLink = document.querySelector('.list .spaceit a[href*="show=50"]');
   } else {
-    nextLink = document.querySelector(`.list .spaceit a[href*="show=${show + 50}"]`);
+    nextLink = document.querySelector(`.list .spaceit a[href*="show=${parseInt(show) + 50}"]`);
   }
 
   return nextLink;
@@ -48,8 +49,8 @@ export const getMyAnimeListTitles = async (url, rows = []) => {
   const dom = new JSDOM(html);
   const document = dom.window.document;
   let nextLink = getNextLink(document, url);
-
   const currentRows = document.querySelectorAll('.list table tbody tr .title .hoverinfo_trigger');
+
   currentRows.forEach(row => {
     const id = row.getAttribute('href').match(/anime\/(\d+)/)[1];
     const date = row.closest('tr').querySelector('td:last-child').textContent;
