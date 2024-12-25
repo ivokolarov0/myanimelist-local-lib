@@ -1,0 +1,21 @@
+{
+  "name": "anidb-search",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "miss": "node src/index.js",
+    "sync": "node src/sync.js",
+    "list": "node src/list.js",
+    "generate": "node src/generate.js"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "jsdom": "^25.0.1",
+    "minimist": "^1.2.8",
+    "node-fetch": "^3.3.2"
+  }
+}
