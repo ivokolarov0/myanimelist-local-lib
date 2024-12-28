@@ -1,12 +1,13 @@
 {
-  "name": "anidb-search",
+  "name": "myanimelist-search",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "miss": "node src/index.js",
     "sync": "node src/sync.js",
     "list": "node src/list.js",
-    "generate": "node src/generate.js"
+    "generate": "node src/generate.js",
+    "rename": "node src/rename.js"
   },
   "type": "module",
   "author": "",

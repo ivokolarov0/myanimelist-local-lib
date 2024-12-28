@@ -9,7 +9,11 @@ if (!year) {
 const websiteItems = await getMyAnimeListTitles(searchPath);
 
 websiteItems.sort((a, b) => a.name.localeCompare(b.name));
+const wrapIdWithCurly = websiteItems.map(item => {
+  item.id = `{${item.id}}`;
+  return item;
+})
 const filePath = './temp/list.json';
-fs.writeFile(filePath, JSON.stringify(websiteItems, null, 2))
+fs.writeFile(filePath, JSON.stringify(wrapIdWithCurly, null, 2))
 
 console.log('List created in ' + filePath)
