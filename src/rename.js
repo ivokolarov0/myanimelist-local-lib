@@ -12,11 +12,16 @@ const folderNames = folders.map(folder => ({
 for (const item of websiteItems) {
   const handleName = item.name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const regex = new RegExp('^' + handleName, 'i');
+
   const hasItem = folderNames.find(folder => {
     if(folder.handledName.toLowerCase().match(regex)) {
       return folder;
     }
   });
+
+  if(hasItem?.name.match(/\{\d+\}$/)) {
+    continue;
+  }
 
   if(hasItem) {
     await fs.rename(networkFolderPath + '\\' + hasItem.name, networkFolderPath + '\\' + hasItem.name + item.id);
