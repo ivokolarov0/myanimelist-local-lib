@@ -5,7 +5,8 @@ import {
   getOnlyFolders,
   generateJSONFile,
   year,
-  dataFilePath
+  dataFilePath,
+  networkFolderPath
 } from './utils.js';
 
 if (!year) {
@@ -20,13 +21,22 @@ if (!year) {
   const dataJSON = await getDataFile();
   const missingFolders = [];
 
-  jsonFromFolders.forEach(folder => {
-    folder.id = parseInt(folder.id)
+  for(const folder of jsonFromFolders) {
     const hasItem = dataJSON.find(item => item.id == folder.id);
     if(!hasItem) {
       missingFolders.push(folder);
+    } else {
+      const files = await getFolders(`${networkFolderPath}\\${folder.name}`);
+      const onlyVideos = files.filter(file => file.name.match(/\.(mkv|mp4|avi|mov|wmv|flv|webm|m4v)$/i));
+      const totalLength = onlyVideos.length;
+      if (totalLength > 0 && hasItem.files !== totalLength) {
+        const folderIndex = dataJSON.findIndex(item => item.id == folder.id);
+        if (folderIndex !== -1) {
+          dataJSON[folderIndex].files = totalLength;
+        }
+      }
     }
-  });
+  }
 
   if(missingFolders.length) {
     missingFolders.forEach(folder => {
@@ -50,5 +60,7 @@ if (!year) {
       console.log(error)
     }
   }
+
+  await fs.writeFile(dataFilePath, JSON.stringify(dataJSON, null, 2));
 })()
 

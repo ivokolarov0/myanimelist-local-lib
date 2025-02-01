@@ -56,11 +56,14 @@ export const getMyAnimeListTitles = async (url, rows = []) => {
     const id = row.getAttribute('href').match(/anime\/(\d+)/)[1];
     const date = row.closest('tr').querySelector('td:last-child').textContent;
     const dateYear = new Date(date).getFullYear();
+    const episodes = parseInt(row.closest('tr').querySelector('td:nth-child(4)').textContent);
+  
     if(dateYear == year) {
       rows.push({ 
         id: id,
         url: `${baseMyAnimeList}/anime/${id}`,
         name: row.textContent,
+        files: episodes || 0
       });
     } else if(dateYear > year) {
       // Because MyAnimeList lists all the titles from the start year untill the current year... no logic, so we return earlier here

@@ -1,5 +1,4 @@
-import { getFolders, networkFolderPath } from './utils.js';
-import fs from 'fs/promises'
+import { getFolders } from './utils.js';
 
 const folders = await getFolders();
 

@@ -22,7 +22,13 @@ if (!year) {
     const id = parseInt(item.id);
     return !getIDs.includes(id) && !ignore.includes(id);
   });
+  const wrongEpisodes = websiteItems.filter(item => {
+    const id = parseInt(item.id);
+    const hasItem = dataJSON.find(entry => entry.id == id);
+    return hasItem && hasItem.files != item.files && item.files > 0;
+  });
 
   console.log('Missing Titles:', missingTitles);
+  console.log('Wrong episodes:', wrongEpisodes);
 })()
 
